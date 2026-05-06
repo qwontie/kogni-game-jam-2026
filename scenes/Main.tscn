@@ -1,3 +1,19 @@
 [gd_scene format=3 uid="uid://bjk368xmoxfho"]
 
+[ext_resource type="Texture2D" uid="uid://d150m6otsp0ck" path="res://textures/proto/kenney_prototype-textures/PNG/Light/texture_12.png" id="1_0bbpv"]
+[ext_resource type="PackedScene" uid="uid://ci1ys4oxun7sv" path="res://scenes/objects/Player.tscn" id="2_rarhs"]
+[ext_resource type="PackedScene" uid="uid://blbfo5km485nq" path="res://scenes/objects/Shotgun.tscn" id="3_rarhs"]
+[ext_resource type="PackedScene" uid="uid://b4aqkxqf3tug4" path="res://scenes/objects/Enemy.tscn" id="3_vcsgt"]
+
 [node name="Node2D" type="Node2D" unique_id=1885227677]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1426161499]
+texture = ExtResource("1_0bbpv")
+
+[node name="Player" parent="." unique_id=437616590 instance=ExtResource("2_rarhs")]
+position = Vector2(4, 26)
+
+[node name="Shotgun" parent="Player" unique_id=1449322296 instance=ExtResource("3_rarhs")]
+
+[node name="Enemy" parent="." unique_id=451755257 instance=ExtResource("3_vcsgt")]
+position = Vector2(-480, -284)

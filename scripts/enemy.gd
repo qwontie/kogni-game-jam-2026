@@ -10,7 +10,7 @@ var wander_timer: float = 0.0
 
 func _ready():
 	# Find the player using the group we created
-	player = get_tree().get_first_node_in_group("Player")
+	player = get_tree().get_first_node_in_group("player")
 	_pick_new_wander_direction()
 
 func _physics_process(delta):

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://blbfo5km485nq"]
 
-[ext_resource type="Script" uid="uid://ciaa4hgxlep27" path="res://scenes/objects/weapon_pivot.gd" id="1_4go78"]
-[ext_resource type="Texture2D" uid="uid://b6ws6ww8ugh0x" path="res://assets/heart.png" id="2_1ihcl"]
+[ext_resource type="Script" path="res://scenes/objects/weapon_pivot.gd" id="1_4go78"]
+[ext_resource type="Texture2D" uid="uid://c2scul4uafsy6" path="res://assets/heart.png" id="2_1ihcl"]
 
 [node name="Shotgun" type="Node2D" unique_id=1449322296]
 

@@ -11,13 +11,17 @@ config_version=5
 [application]
 
 config/name="kogni-game-jam-2026"
-run/main_scene="uid://dv1kldx0mm241"
+run/main_scene="uid://bjk368xmoxfho"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GameState="*uid://dhk3200bp3ro"
+
+[global_group]
+
+player=""
 
 [physics]
 
