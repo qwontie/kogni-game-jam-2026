@@ -20,8 +20,8 @@ func _process(delta):
 		if hide_timer <= 0:
 			visible = false
 
-func _on_stroop(text: String, color: Color):
-	self.text = text
+func _on_stroop(stroop_text: String, color: Color):
+	text = stroop_text
 	label_settings.font_color = color
 	visible = true
 	is_blinking = true

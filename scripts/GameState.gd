@@ -4,6 +4,7 @@ extends Node
 var current_weapon_color: Color = Color.RED
 var player_health: int = 5
 signal stroop_changed(text: String, color: Color)
+signal player_health_changed(health: int)
 
 const COLOR_NAMES = ["RED", "GREEN", "BLUE", "YELLOW"]
 const COLOR_VALUES = [Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW]
@@ -34,7 +35,7 @@ func _process(delta):
 		_emit_stroop()
 	
 	# 2. Spawner Logic
-	if player_ref:
+	if player_ref and enemy_scene != null:
 		spawn_timer -= delta
 		if spawn_timer <= 0:
 			spawn_timer = spawn_interval
@@ -46,6 +47,14 @@ func _emit_stroop():
 	while color_index == text_index:
 		color_index = randi() % COLOR_VALUES.size()
 	stroop_changed.emit(COLOR_NAMES[text_index], COLOR_VALUES[color_index])
+
+func damage_player(amount: int = 1) -> void:
+	player_health = maxi(player_health - amount, 0)
+	player_health_changed.emit(player_health)
+
+func heal_player(amount: int = 1) -> void:
+	player_health = mini(player_health + amount, 5)
+	player_health_changed.emit(player_health)
 
 func _spawn_enemy_randomly():
 	if enemy_scene == null:
