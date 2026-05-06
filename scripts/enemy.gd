@@ -27,6 +27,7 @@ func _physics_process(delta):
 		velocity = wander_direction * (speed * wander_speed_factor)
 	
 	move_and_slide()
+	_damage_player_on_contact()
 
 func _can_see_player() -> bool:
 	if player == null: return false
@@ -41,4 +42,12 @@ func _pick_new_wander_direction():
 	wander_timer = randf_range(1.0, 3.0)
 	
 func take_damage():
+	if player != null and player.has_method("reward_enemy_kill"):
+		player.reward_enemy_kill()
 	queue_free() 
+
+func _damage_player_on_contact() -> void:
+	for i in get_slide_collision_count():
+		var collider := get_slide_collision(i).get_collider()
+		if collider != null and collider.is_in_group("player") and collider.has_method("take_damage"):
+			collider.take_damage()

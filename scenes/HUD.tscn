@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://wfk8k2l2cmv6" path="res://scripts/hud_canvas.gd" id="1_fls4u"]
 [ext_resource type="PackedScene" uid="uid://dv1kldx0mm241" path="res://scenes/objects/WeaponWheel.tscn" id="2_1etfg"]
-[ext_resource type="Texture2D" uid="uid://cvh2wghidreuj" path="res://assets/heart.png" id="2_7hsmw"]
+[ext_resource type="Texture2D" path="res://assets/heart.png" id="2_7hsmw"]
 [ext_resource type="Script" uid="uid://p35x8y1i2umo" path="res://scripts/lives_count.gd" id="2_nysna"]
 [ext_resource type="Script" uid="uid://7gew100kvfri" path="res://scripts/stroop_text.gd" id="4_nysna"]
 
