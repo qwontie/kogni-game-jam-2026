@@ -67,7 +67,32 @@ func take_damage():
 		return
 	if player != null and player.has_method("reward_enemy_kill"):
 		player.reward_enemy_kill()
-	queue_free() 
+	die()
+
+func die():
+	var particles = GPUParticles2D.new()
+	add_child(particles)
+	
+	var material = ParticleProcessMaterial.new()
+	material.direction = Vector3(0, 0, 0)
+	material.spread = 40.0
+	material.initial_velocity_min = 100.0
+	material.initial_velocity_max = 300.0
+	material.gravity = Vector3.ZERO
+	material.scale_min = 0.05
+	material.scale_max = 0.3
+	
+	particles.process_material = material
+	particles.texture = $Sprite2D.texture
+	particles.amount = 10
+	particles.lifetime = 0.4
+	particles.one_shot = true
+	particles.emitting = true
+	
+	$Sprite2D.visible = false
+	
+	await get_tree().create_timer(particles.lifetime).timeout
+	queue_free()
 
 func is_attached_to_player() -> bool:
 	return attached
