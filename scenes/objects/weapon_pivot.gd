@@ -44,5 +44,9 @@ func shoot():
 	var bullet = bullet_scene.instantiate()
 	get_tree().root.add_child(bullet)
 	bullet.global_position = muzzle.global_position
-	bullet.rotation = global_rotation
+	var aim_dir: Vector2 = get_global_mouse_position() - muzzle.global_position
+	if aim_dir.length_squared() > 0.0001:
+		bullet.rotation = aim_dir.angle()
+	else:
+		bullet.rotation = global_rotation
 	bullet.modulate = GameState.current_weapon_color
