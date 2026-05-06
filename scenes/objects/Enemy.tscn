@@ -6,19 +6,14 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n76d8"]
 size = Vector2(44, 45)
 
-[node name="Enemy" type="Node2D" unique_id=451755257]
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1523931221]
+[node name="Enemy" type="CharacterBody2D" unique_id=1637897088]
 script = ExtResource("1_qpkod")
-speed = null
-detection_radius = null
-wander_speed_factor = null
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1484853480]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1484853480]
 position = Vector2(21, 23.5)
 shape = SubResource("RectangleShape2D_n76d8")
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=1648795275]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1648795275]
 position = Vector2(20.500004, 22)
 scale = Vector2(0.040039063, 0.044921875)
 texture = ExtResource("1_n76d8")

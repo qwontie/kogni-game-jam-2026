@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ci1ys4oxun7sv"]
 
-[ext_resource type="Script" path="res://scenes/objects/player.gd" id="1_id4ih"]
+[ext_resource type="Script" uid="uid://de0wojdcjkkcu" path="res://scenes/objects/player.gd" id="1_id4ih"]
 [ext_resource type="Texture2D" uid="uid://d1rwltw5sgl0h" path="res://assets/stroopy.png" id="2_id4ih"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b5y4o"]
