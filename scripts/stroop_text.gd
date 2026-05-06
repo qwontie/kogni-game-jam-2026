@@ -13,7 +13,7 @@ func _process(delta):
 		modulate.a = 1.0 if int(blink_timer * 6) % 2 == 0 else 0.0
 		if blink_timer <= 0:
 			is_blinking = false
-			modulate.a = 1.0
+			modulate.a = 1.0	
 	
 	if hide_timer > 0:
 		hide_timer -= delta

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://blbfo5km485nq"]
 
 [ext_resource type="Script" path="res://scenes/objects/weapon_pivot.gd" id="1_4go78"]
-[ext_resource type="Texture2D" uid="uid://c2scul4uafsy6" path="res://assets/heart.png" id="2_1ihcl"]
+[ext_resource type="Texture2D" uid="uid://dadngs84bxggb" path="res://assets/shotgun.png" id="2_4go78"]
 
 [node name="Shotgun" type="Node2D" unique_id=1449322296]
 
@@ -9,6 +9,9 @@
 script = ExtResource("1_4go78")
 
 [node name="Weapon" type="Sprite2D" parent="WeaponPivot" unique_id=883962505]
-texture = ExtResource("2_1ihcl")
+position = Vector2(133, 2.0000005)
+scale = Vector2(0.640625, 0.640625)
+texture = ExtResource("2_4go78")
 
 [node name="Muzzle" type="Marker2D" parent="WeaponPivot/Weapon" unique_id=458943736]
+position = Vector2(-118, -5)
