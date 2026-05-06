@@ -14,10 +14,9 @@ func _process(_delta):
 	if not visible:
 		return
 	var mouse = get_local_mouse_position() - center
-	print("mouse offset: ", mouse.length())
 	if mouse.length() < 20:
 		return
-	var angle = atan2(mouse.y, mouse.x)
+	var angle = atan2(mouse.y, mouse.x)		
 	var sector_size = TAU / colors.size()
 	var index = int((angle + TAU) / sector_size) % colors.size()
 	if index != current_index:
@@ -27,10 +26,10 @@ func _process(_delta):
 func _highlight(index: int):
 	for i in sectors.size():
 		sectors[i].modulate.a = 0.5 if i != index else 1.0
-	print("selected: ", colors[index])
+	print("selected: ", colors[index])	
 
 func open():
-	center = size / 2
+	center = get_viewport_rect().size / 2
 	show()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
