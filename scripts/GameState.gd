@@ -6,8 +6,8 @@ const SPAWN_INDICATOR_SCRIPT := preload("res://scripts/spawn_indicator.gd")
 # --- DIFFICULTY SCALING ---
 var time_elapsed: float = 0.0
 @export_group("Difficulty Scaling")
-@export var difficulty_ramp: float = 0.9
-@export var min_spawn_interval: float = 0.25
+@export var difficulty_ramp: float = 0.45
+@export var min_spawn_interval: float = 0.5
 @export var min_stroop_interval: float = 2.0
 
 # --- HEALTH ---
@@ -57,18 +57,19 @@ var stroop_timer: float = 10.0
 
 # --- SPAWNER ---
 @export_group("Spawner Settings")
-@export var spawn_interval: float = 1.4
+@export var spawn_interval: float = 1.9
 @export var min_distance: float = 400.0
 @export var max_distance: float = 800.0
+@export var max_alive_enemies: int = 14
 
 @export_group("Spawn Juice")
 @export var telegraph_time: float = 0.4
-@export var calm_duration_min: float = 2.5
-@export var calm_duration_max: float = 4.0
-@export var burst_duration_min: float = 3.0
-@export var burst_duration_max: float = 5.0
-@export var calm_rate_mult: float = 1.2
-@export var burst_rate_mult: float = 0.4
+@export var calm_duration_min: float = 3.0
+@export var calm_duration_max: float = 5.0
+@export var burst_duration_min: float = 2.0
+@export var burst_duration_max: float = 3.5
+@export var calm_rate_mult: float = 1.4
+@export var burst_rate_mult: float = 0.55
 @export var stroop_bias_window: float = 3.0
 @export var stroop_bias_target_chance: float = 0.65
 @export var pity_heal_hp_threshold: float = 0.3
@@ -133,7 +134,10 @@ func _process(delta):
 		var rate_mult: float = calm_rate_mult if phase == Phase.CALM else burst_rate_mult
 		var actual_spawn_rate := maxf(min_spawn_interval, (spawn_interval * rate_mult) / difficulty_modifier)
 		spawn_timer = actual_spawn_rate
-		_trigger_pattern(difficulty_modifier)
+		# Soft cap — if the arena is already crowded, skip this tick so the
+		# player gets a moment to clear bodies before the next wave drops.
+		if _alive_enemy_count() < max_alive_enemies:
+			_trigger_pattern(difficulty_modifier)
 
 func _swap_phase() -> void:
 	if phase == Phase.CALM:
@@ -329,6 +333,9 @@ func _on_indicator_fire(color_key: String, pos: Vector2, difficulty_modifier: fl
 		enemy.speed *= speed_boost
 	parent.add_child(enemy)
 	enemy.global_position = pos
+
+func _alive_enemy_count() -> int:
+	return get_tree().get_nodes_in_group("enemy").size()
 
 func _spawn_parent() -> Node:
 	if player_ref and player_ref.get_parent():

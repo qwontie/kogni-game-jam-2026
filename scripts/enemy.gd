@@ -7,6 +7,7 @@ extends CharacterBody2D
 @export var attach_damage_interval: float = 0.5
 @export var attach_distance: float = 96.0
 @export var detach_opposite_dot: float = -0.55
+@export var max_attached_global: int = 3
 
 const ENEMY_TEXTURES := {
 	"red": preload("res://assets/enemy_red.png"),
@@ -170,6 +171,13 @@ func die():
 func is_attached_to_player() -> bool:
 	return attached
 
+func _attached_count() -> int:
+	var n := 0
+	for node in get_tree().get_nodes_in_group("enemy"):
+		if node != self and node.has_method("is_attached_to_player") and node.is_attached_to_player():
+			n += 1
+	return n
+
 func try_detach_with_dash(dash_direction: Vector2) -> bool:
 	if not attached or dash_direction == Vector2.ZERO:
 		return false
@@ -199,6 +207,13 @@ func _on_contact() -> void:
 				return
 			if GameState.is_peace:
 				# Truce — bump and slide, no attach, no damage.
+				return
+			if _attached_count() >= max_attached_global:
+				# Already enough bugs latched on — punch and die instead of
+				# piling on (the dogpile is what causes the position glitch).
+				if collider.has_method("take_damage"):
+					collider.take_damage(GameState.hit_damage)
+				queue_free()
 				return
 			_attach_to_player(collider)
 			return
