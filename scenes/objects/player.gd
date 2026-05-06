@@ -136,6 +136,7 @@ func _start_dash() -> void:
 	perfect_dodge_ready = true
 	kill_chain_timer = dash_duration + dash_kill_chain_window
 	dash_direction = _get_dash_direction()
+	_detach_enemies_with_dash(dash_direction)
 	dash_ghost_timer = 0.0
 	_spawn_dash_ghost()
 
@@ -150,6 +151,8 @@ func _get_dash_direction() -> Vector2:
 
 func _try_perfect_dodge() -> void:
 	for node in get_tree().get_nodes_in_group("enemy"):
+		if node.has_method("is_attached_to_player") and node.is_attached_to_player():
+			continue
 		if node is Node2D and global_position.distance_to(node.global_position) <= perfect_dodge_radius:
 			perfect_dodge_ready = false
 			dash_cooldown_timer = maxf(dash_cooldown_timer - perfect_dodge_cooldown_refund, 0.0)
@@ -165,6 +168,10 @@ func take_damage(amount: int = 1) -> void:
 	GameState.damage_player(amount)
 	_flash(Color.RED)
 
+func take_attached_damage(amount: int = 1) -> void:
+	GameState.damage_player(amount)
+	_flash(Color.RED)
+
 func reward_enemy_kill() -> void:
 	if kill_chain_timer <= 0.0:
 		return
@@ -174,6 +181,11 @@ func reward_enemy_kill() -> void:
 
 func is_invulnerable() -> bool:
 	return iframe_timer > 0.0
+
+func _detach_enemies_with_dash(direction: Vector2) -> void:
+	for node in get_tree().get_nodes_in_group("enemy"):
+		if node.has_method("try_detach_with_dash"):
+			node.try_detach_with_dash(direction)
 
 func _update_feedback() -> void:
 	if sprite == null:
