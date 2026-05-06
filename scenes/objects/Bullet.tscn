@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://c4e4eqx4ucf58"]
 
 [ext_resource type="Script" uid="uid://c0f46almwbg1m" path="res://scenes/objects/area_2d.gd" id="1_wv221"]
-[ext_resource type="Texture2D" uid="uid://c2scul4uafsy6" path="res://assets/heart.png" id="2_d4b24"]
+[ext_resource type="Texture2D" uid="uid://brkqaaud2m1we" path="res://assets/bullet.png" id="2_d4b24"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d4b24"]
-size = Vector2(101, 119)
+size = Vector2(40, 20)
 
 [node name="Bullet" type="Area2D" unique_id=1724455469]
 collision_layer = 2

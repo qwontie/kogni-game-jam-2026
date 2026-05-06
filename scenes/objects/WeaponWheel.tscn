@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dv1kldx0mm241"]
+[gd_scene load_steps=8 format=3 uid="uid://dv1kldx0mm241"]
 
 [ext_resource type="Script" uid="uid://bo3oxgl32kqb2" path="res://scripts/weapon_wheel.gd" id="1_cytn0"]
 [ext_resource type="Texture2D" uid="uid://d3kxrkdh7fx7m" path="res://assets/shotgun_yellow.png" id="2_mevbi"]
@@ -6,54 +6,83 @@
 [ext_resource type="Texture2D" uid="uid://o1bbihrfg53" path="res://assets/shotgun_red.png" id="5_ca6ph"]
 [ext_resource type="Texture2D" uid="uid://dwuwnoxb5a46s" path="res://assets/shotgun_green.png" id="6_7xet7"]
 [ext_resource type="Texture2D" uid="uid://c4uaa1j3y6adi" path="res://assets/weapon_wheel.png" id="6_i1x03"]
+[ext_resource type="Shader" path="res://shaders/wheel_blur.gdshader" id="7_blur"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_blur"]
+shader = ExtResource("7_blur")
+shader_parameter/blur_amount = 2.5
+shader_parameter/tint = Color(0, 0, 0, 0.25)
 
 [node name="WeaponWheel" type="Control" unique_id=527214665 node_paths=PackedStringArray("sectors")]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource("1_cytn0")
-sectors = [NodePath("ChooseWeaponYellow"), NodePath("ChooseWeaponGreen"), NodePath("ChooseWeaponRed"), NodePath("ChooseWeaponBlue")]
+sectors = [NodePath("WheelContainer/ChooseWeaponYellow"), NodePath("WheelContainer/ChooseWeaponGreen"), NodePath("WheelContainer/ChooseWeaponRed"), NodePath("WheelContainer/ChooseWeaponBlue")]
 
-[node name="ChooseWeaponYellow" type="TextureRect" parent="." unique_id=423102774]
-layout_mode = 0
-offset_left = 635.0
-offset_top = 313.0
-offset_right = 782.6282
-offset_bottom = 348.0
-texture = ExtResource("2_mevbi")
-expand_mode = 1
+[node name="BlurBackdrop" type="ColorRect" parent="." unique_id=1900000001]
+material = SubResource("ShaderMaterial_blur")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(1, 1, 1, 1)
+mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=2130150552]
+[node name="WheelContainer" type="Control" parent="." unique_id=1900000002]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -244.0
+offset_top = -244.0
+offset_right = 244.0
+offset_bottom = 244.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="WheelContainer" unique_id=2130150552]
 layout_mode = 0
-offset_left = 320.0
-offset_top = 98.0
-offset_right = 807.0
-offset_bottom = 586.72095
+offset_right = 487.0
+offset_bottom = 488.72095
 texture = ExtResource("6_i1x03")
 expand_mode = 1
 
-[node name="ChooseWeaponBlue" type="TextureRect" parent="." unique_id=590960712]
+[node name="ChooseWeaponYellow" type="TextureRect" parent="WheelContainer" unique_id=423102774]
 layout_mode = 0
-offset_left = 506.0
-offset_top = 167.0
-offset_right = 653.6282
-offset_bottom = 202.0
+offset_left = 315.0
+offset_top = 215.0
+offset_right = 462.6282
+offset_bottom = 250.0
+texture = ExtResource("2_mevbi")
+expand_mode = 1
+
+[node name="ChooseWeaponBlue" type="TextureRect" parent="WheelContainer" unique_id=590960712]
+layout_mode = 0
+offset_left = 186.0
+offset_top = 69.0
+offset_right = 333.6282
+offset_bottom = 104.0
 texture = ExtResource("4_52m6i")
 expand_mode = 1
 
-[node name="ChooseWeaponRed" type="TextureRect" parent="." unique_id=905810528]
+[node name="ChooseWeaponRed" type="TextureRect" parent="WheelContainer" unique_id=905810528]
 layout_mode = 0
-offset_left = 360.0
-offset_top = 302.0
-offset_right = 507.62817
-offset_bottom = 337.0
+offset_left = 40.0
+offset_top = 204.0
+offset_right = 187.6282
+offset_bottom = 239.0
 texture = ExtResource("5_ca6ph")
 expand_mode = 1
 
-[node name="ChooseWeaponGreen" type="TextureRect" parent="." unique_id=1204621151]
+[node name="ChooseWeaponGreen" type="TextureRect" parent="WheelContainer" unique_id=1204621151]
 layout_mode = 0
-offset_left = 493.0
-offset_top = 450.0
-offset_right = 640.6282
-offset_bottom = 485.0
+offset_left = 173.0
+offset_top = 352.0
+offset_right = 320.6282
+offset_bottom = 387.0
 texture = ExtResource("6_7xet7")
 expand_mode = 1
