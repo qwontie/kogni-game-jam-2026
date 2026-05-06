@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-@export var speed: float = 150.0
-@export var detection_radius: float = 300.0
+@export var speed: float = 190.0
+@export var detection_radius: float = 4000.0
 @export var wander_speed_factor: float = 0.5
 @export_group("Attachment")
 @export var attach_damage_interval: float = 0.5
@@ -23,6 +23,7 @@ const KEY_TO_COLOR := {
 
 var enemy_color: Color = Color.RED
 var color_key: String = "red"
+var forced_color_key: String = ""
 var is_healer: bool = false
 var base_scale: Vector2 = Vector2.ONE
 
@@ -84,8 +85,11 @@ func _pick_new_wander_direction():
 	wander_timer = randf_range(1.0, 3.0)
 
 func _pick_random_color() -> void:
-	var keys := ENEMY_TEXTURES.keys()
-	color_key = keys[randi() % keys.size()]
+	if forced_color_key != "" and ENEMY_TEXTURES.has(forced_color_key):
+		color_key = forced_color_key
+	else:
+		var keys := ENEMY_TEXTURES.keys()
+		color_key = keys[randi() % keys.size()]
 	enemy_color = KEY_TO_COLOR[color_key]
 	sprite.texture = ENEMY_TEXTURES[color_key]
 
@@ -115,30 +119,52 @@ func take_damage(bullet_color: Color = Color.WHITE):
 
 func die():
 	var particles = GPUParticles2D.new()
-	add_child(particles)
+	# Detach from the dying enemy so the corpse can free immediately while the
+	# burst plays out at the death position.
+	get_parent().add_child(particles)
+	particles.global_position = global_position
 
 	var material = ParticleProcessMaterial.new()
 	material.direction = Vector3(0, 0, 0)
-	material.spread = 40.0
-	material.initial_velocity_min = 100.0
-	material.initial_velocity_max = 300.0
+	material.spread = 180.0
+	material.initial_velocity_min = 80.0
+	material.initial_velocity_max = 220.0
 	material.gravity = Vector3.ZERO
-	material.scale_min = 0.05
-	material.scale_max = 0.3
+	material.damping_min = 80.0
+	material.damping_max = 140.0
+	material.scale_min = 0.15
+	material.scale_max = 0.35
+
+	var scale_curve := Curve.new()
+	scale_curve.add_point(Vector2(0.0, 1.0))
+	scale_curve.add_point(Vector2(1.0, 0.0))
+	var scale_tex := CurveTexture.new()
+	scale_tex.curve = scale_curve
+	material.scale_curve = scale_tex
+
+	var alpha_grad := Gradient.new()
+	alpha_grad.set_color(0, Color(1, 1, 1, 1))
+	alpha_grad.set_color(1, Color(1, 1, 1, 0))
+	var alpha_tex := GradientTexture1D.new()
+	alpha_tex.gradient = alpha_grad
+	material.color_ramp = alpha_tex
 
 	particles.process_material = material
 	particles.texture = $Sprite2D.texture
-	particles.amount = 10
-	particles.lifetime = 0.4
+	particles.amount = 14
+	particles.lifetime = 1.1
 	particles.one_shot = true
 	particles.emitting = true
 
 	$Sprite2D.visible = false
-	# Stop colliding so the corpse doesn't keep blocking bullets / the player.
 	collision_shape.set_deferred("disabled", true)
 
-	await get_tree().create_timer(particles.lifetime).timeout
+	# Free the enemy now; particles live on their own and clean themselves up.
+	var burst_lifetime: float = particles.lifetime
 	queue_free()
+	await particles.get_tree().create_timer(burst_lifetime).timeout
+	if is_instance_valid(particles):
+		particles.queue_free()
 
 func is_attached_to_player() -> bool:
 	return attached
