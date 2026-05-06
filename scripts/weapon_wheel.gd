@@ -28,9 +28,15 @@ func _calculate_center() -> Vector2:
 		return size / 2.0
 
 	var total := Vector2.ZERO
+	var count := 0
 	for sector in sectors:
+		if sector == null:
+			continue
 		total += sector.position + sector.size / 2.0
-	return total / sectors.size()
+		count += 1
+	if count == 0:
+		return size / 2.0
+	return total / count
 
 func select_index(index: int) -> void:
 	if colors.is_empty() or sectors.is_empty():
@@ -46,6 +52,8 @@ func select_index(index: int) -> void:
 func _highlight(index: int):
 	var sector_count := mini(colors.size(), sectors.size())
 	for i in sector_count:
+		if sectors[i] == null:
+			continue
 		sectors[i].modulate.a = 0.5 if i != index else 1.0
 
 func open():
