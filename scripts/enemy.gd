@@ -111,6 +111,7 @@ func take_damage(bullet_color: Color = Color.WHITE):
 	if not is_healer and weapon_match:
 		if player != null and player.has_method("reward_enemy_kill"):
 			player.reward_enemy_kill()
+		GameState.add_kill()
 		die()
 	else:
 		# Wrong weapon, or wrong target (healer) — punish the player but spare the bug.

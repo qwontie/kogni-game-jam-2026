@@ -22,6 +22,7 @@ region_enabled = true
 region_rect = Rect2(-6000, -6000, 12000, 12000)
 
 [node name="Drawings" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.35)
 z_index = -50
 
 [node name="D0" type="Sprite2D" parent="Drawings"]

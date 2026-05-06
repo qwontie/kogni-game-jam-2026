@@ -23,6 +23,15 @@ var player_health: float = 100.0
 # friendly so the player can read the prompt without taking chip damage.
 var is_peace: bool = false
 
+# --- SCORE ---
+const SCORE_SAVE_PATH := "user://score.save"
+var score: int = 0
+var total_score: int = 0
+var is_dead: bool = false
+
+signal score_changed(score: int, total: int)
+signal player_died
+
 # --- STROOP / TARGETS ---
 var current_weapon_color: Color = Color.RED
 var target_enemy_color: Color = Color.RED
@@ -89,6 +98,10 @@ func _ready():
 	spawn_timer = 0.3
 	player_health = max_health
 	stroop_timer = stroop_interval
+	is_dead = false
+	score = 0
+	_load_total_score()
+	score_changed.emit(score, total_score)
 	_emit_stroop()
 
 func _process(delta):
@@ -108,7 +121,7 @@ func _process(delta):
 		player_ref = get_tree().get_first_node_in_group("player")
 	# Don't spawn during the halftime truce — the player should read the prompt
 	# before new bugs walk on stage.
-	if player_ref == null or is_peace:
+	if player_ref == null or is_peace or is_dead:
 		return
 
 	phase_timer -= delta
@@ -173,14 +186,49 @@ func _emit_stroop():
 	stroop_target_changed.emit(target_enemy_color, target_weapon_color)
 
 func damage_player(amount: float = 20.0) -> void:
+	if is_dead:
+		return
 	player_health = maxf(player_health - amount, 0.0)
 	player_health_changed.emit(player_health, max_health)
 	if player_health <= 0.0:
-		print("Game Over")
+		is_dead = true
+		player_died.emit()
 
 func heal_player(amount: float = 20.0) -> void:
+	if is_dead:
+		return
 	player_health = minf(player_health + amount, max_health)
 	player_health_changed.emit(player_health, max_health)
+
+func add_kill() -> void:
+	if is_dead:
+		return
+	score += 1
+	total_score += 1
+	_save_total_score()
+	score_changed.emit(score, total_score)
+
+func restart_run() -> void:
+	is_dead = false
+	score = 0
+	player_health = max_health
+	time_elapsed = 0.0
+	player_health_changed.emit(player_health, max_health)
+	score_changed.emit(score, total_score)
+
+func _load_total_score() -> void:
+	if not FileAccess.file_exists(SCORE_SAVE_PATH):
+		return
+	var f := FileAccess.open(SCORE_SAVE_PATH, FileAccess.READ)
+	if f == null:
+		return
+	total_score = int(f.get_var())
+
+func _save_total_score() -> void:
+	var f := FileAccess.open(SCORE_SAVE_PATH, FileAccess.WRITE)
+	if f == null:
+		return
+	f.store_var(total_score)
 
 # --- Spawn patterns ---
 
