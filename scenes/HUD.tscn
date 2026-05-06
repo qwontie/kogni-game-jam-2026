@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://wfk8k2l2cmv6" path="res://scripts/hud_canvas.gd" id="1_fls4u"]
 [ext_resource type="PackedScene" uid="uid://dv1kldx0mm241" path="res://scenes/objects/WeaponWheel.tscn" id="2_1etfg"]
+[ext_resource type="Texture2D" uid="uid://cvh2wghidreuj" path="res://assets/heart.png" id="2_7hsmw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jvwwx"]
 font_size = 256
@@ -18,6 +19,26 @@ anchor_bottom = 1.0
 offset_top = -67.0
 offset_right = 372.0
 grow_vertical = 0
+
+[node name="Heart1" type="TextureRect" parent="HudCanvas/LivesCount" unique_id=803554999]
+layout_mode = 2
+texture = ExtResource("2_7hsmw")
+
+[node name="Heart2" type="TextureRect" parent="HudCanvas/LivesCount" unique_id=1359847819]
+layout_mode = 2
+texture = ExtResource("2_7hsmw")
+
+[node name="Heart3" type="TextureRect" parent="HudCanvas/LivesCount" unique_id=1736168301]
+layout_mode = 2
+texture = ExtResource("2_7hsmw")
+
+[node name="Heart4" type="TextureRect" parent="HudCanvas/LivesCount" unique_id=1388924816]
+layout_mode = 2
+texture = ExtResource("2_7hsmw")
+
+[node name="Heart5" type="TextureRect" parent="HudCanvas/LivesCount" unique_id=459537442]
+layout_mode = 2
+texture = ExtResource("2_7hsmw")
 
 [node name="StroopText" type="Label" parent="HudCanvas" unique_id=674216282]
 visible = false
@@ -36,3 +57,4 @@ text = "STROOP"
 label_settings = SubResource("LabelSettings_jvwwx")
 
 [node name="WeaponWheel" parent="HudCanvas" unique_id=527214665 instance=ExtResource("2_1etfg")]
+visible = false
