@@ -6,6 +6,9 @@ var is_blinking: bool = false
 
 func _ready():
 	GameState.stroop_changed.connect(_on_stroop)
+	# Replay the last stroop in case the autoload emitted before we were alive.
+	if GameState.has_stroop:
+		_on_stroop(GameState.last_stroop_text, GameState.last_stroop_color)
 
 func _process(delta):
 	if is_blinking:

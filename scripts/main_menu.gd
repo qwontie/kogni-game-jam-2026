@@ -100,9 +100,10 @@ func _build_scene() -> void:
 	_init_title_cycle(title, "STROOPSHIFT")
 
 	var subtitle := Label.new()
-	subtitle.text = "read the word.  shoot the colour."
+	subtitle.text = "Read the word - shoot bugs that match its MEANING\nusing a weapon in the word's COLOR.\nWrong shots hurt. Mismatched bugs heal on touch."
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	subtitle.add_theme_font_size_override("font_size", 22)
+	subtitle.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	subtitle.add_theme_font_size_override("font_size", 18)
 	subtitle.add_theme_color_override("font_color", Color(0.20, 0.16, 0.14))
 	stack.add_child(subtitle)
 
