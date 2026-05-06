@@ -95,25 +95,25 @@ var _sfx_death: AudioStreamPlayer
 var _bg_music: AudioStreamPlayer
 
 func _setup_audio() -> void:
-	_bg_music = AudioStreamPlayer.new()
-	_bg_music.bus = "Master"
-	var music_stream := load("res://bg_music.wav")
-	if music_stream is AudioStreamWAV:
-		music_stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
-		music_stream.loop_end = 0
-	_bg_music.stream = music_stream
-	_bg_music.volume_db = -8.0
-	add_child(_bg_music)
-	_bg_music.play()
+	#_bg_music = AudioStreamPlayer.new()
+	#_bg_music.bus = "Master"
+	#var music_stream := load("res://bg_music.wav")
+	#if music_stream is AudioStreamWAV:
+		#music_stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
+		#music_stream.loop_end = 0
+	#_bg_music.stream = music_stream
+	#_bg_music.volume_db = -8.0
+	#add_child(_bg_music)
+	#_bg_music.play()
 
 	_sfx_shoot = AudioStreamPlayer.new()
 	_sfx_shoot.stream = load("res://shoot_sound_2.wav")
 	_sfx_shoot.volume_db = -4.0
 	add_child(_sfx_shoot)
 
-	_sfx_death = AudioStreamPlayer.new()
-	_sfx_death.stream = load("res://death_3.wav")
-	add_child(_sfx_death)
+	#_sfx_death = AudioStreamPlayer.new()
+	#_sfx_death.stream = load("res://death_3.wav")
+	#add_child(_sfx_death)
 
 func play_shoot() -> void:
 	if _sfx_shoot:

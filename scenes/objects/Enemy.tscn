@@ -2,9 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://m36n47o7c01p" path="res://assets/enemy_red.png" id="1_2te4u"]
 [ext_resource type="Script" uid="uid://dq4tq6tjjr5di" path="res://scripts/enemy.gd" id="1_qpkod"]
-[ext_resource type="Texture2D" uid="uid://bgc00qro4u4r7" path="res://assets/enemy_green.png" id="2_qpkod"]
-[ext_resource type="Texture2D" uid="uid://cktuwftudeweb" path="res://assets/enemy_blue.png" id="3_v1y3n"]
-[ext_resource type="Texture2D" uid="uid://cm1fgtfbiv547" path="res://assets/enemy_yellow.png" id="4_y4i6e"]
+[ext_resource type="AudioStream" uid="uid://oa1t0qmnngkp" path="res://death_3.wav" id="3_hmq82"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n76d8"]
 radius = 34.0
@@ -20,3 +18,8 @@ scale = Vector2(0.42, 0.42)
 texture = ExtResource("1_2te4u")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=190037433]
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="." unique_id=522115258]
+unique_name_in_owner = true
+scale = Vector2(0.99999994, 0.99999994)
+stream = ExtResource("3_hmq82")

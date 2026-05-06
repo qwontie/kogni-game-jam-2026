@@ -120,6 +120,11 @@ func take_damage(bullet_color: Color = Color.WHITE):
 			player.take_damage(GameState.wrong_shot_damage)
 
 func die():
+	var sound = AudioStreamPlayer.new()
+	get_tree().root.add_child(sound)
+	sound.stream = $DeathSound.stream
+	sound.play()
+	sound.finished.connect(sound.queue_free)
 	var particles = GPUParticles2D.new()
 	# Detach from the dying enemy so the corpse can free immediately while the
 	# burst plays out at the death position.
