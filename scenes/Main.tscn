@@ -24,6 +24,7 @@ position = Vector2(-480, -284)
 
 [node name="Node" type="Node" parent="." unique_id=1595296699]
 script = ExtResource("5_vcsgt")
+difficulty_ramp = 0.4
 enemy_scene = ExtResource("3_vcsgt")
 
 [node name="Hud" parent="." unique_id=762178872 instance=ExtResource("6_3sj1l")]
