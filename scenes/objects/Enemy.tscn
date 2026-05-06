@@ -18,3 +18,5 @@ shape = SubResource("CircleShape2D_n76d8")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1648795275]
 scale = Vector2(0.42, 0.42)
 texture = ExtResource("1_2te4u")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=190037433]
