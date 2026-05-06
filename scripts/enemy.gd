@@ -39,3 +39,6 @@ func _pick_new_wander_direction():
 	wander_direction = Vector2(cos(random_angle), sin(random_angle))
 	# Stay in this direction for 1 to 3 seconds
 	wander_timer = randf_range(1.0, 3.0)
+	
+func take_damage():
+	queue_free() 

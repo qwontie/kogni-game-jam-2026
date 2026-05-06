@@ -10,6 +10,9 @@ size = Vector2(44, 45)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1523931221]
 script = ExtResource("1_qpkod")
+speed = null
+detection_radius = null
+wander_speed_factor = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1484853480]
 position = Vector2(21, 23.5)
