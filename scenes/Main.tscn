@@ -127,6 +127,12 @@ position = Vector2(4, 26)
 [node name="Shotgun" parent="Player" unique_id=1449322296 instance=ExtResource("3_rarhs")]
 position = Vector2(-2, -1)
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Player" unique_id=297535875]
+position = Vector2(-4, -26)
+stream = ExtResource("11_wp0k4")
+autoplay = true
+max_distance = 4096.0
+
 [node name="Enemy" parent="." unique_id=451755257 instance=ExtResource("3_vcsgt")]
 position = Vector2(-480, -284)
 
@@ -134,7 +140,3 @@ position = Vector2(-480, -284)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=364667541]
 script = ExtResource("7_mywjv")
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=297535875]
-stream = ExtResource("11_wp0k4")
-autoplay = true
