@@ -1,59 +1,59 @@
 [gd_scene format=3 uid="uid://dv1kldx0mm241"]
 
 [ext_resource type="Script" uid="uid://bo3oxgl32kqb2" path="res://scripts/weapon_wheel.gd" id="1_cytn0"]
-[ext_resource type="Texture2D" uid="uid://c58fg8cm46x5" path="res://textures/proto/kenney_prototype-textures/PNG/Orange/texture_01.png" id="2_byevm"]
-[ext_resource type="Texture2D" uid="uid://b6ulihktfxm5j" path="res://textures/proto/kenney_prototype-textures/PNG/Green/texture_01.png" id="3_a1cud"]
-[ext_resource type="Texture2D" uid="uid://bk2837qwtm0nh" path="res://textures/proto/kenney_prototype-textures/PNG/Red/texture_01.png" id="4_6grb5"]
-[ext_resource type="Texture2D" uid="uid://bj0j1h4k8r0gs" path="res://textures/proto/kenney_prototype-textures/PNG/Purple/texture_01.png" id="5_nk1j1"]
+[ext_resource type="Texture2D" uid="uid://d3kxrkdh7fx7m" path="res://assets/shotgun_yellow.png" id="2_mevbi"]
+[ext_resource type="Texture2D" uid="uid://c25ivwr67ndvf" path="res://assets/shotgun_blue.png" id="4_52m6i"]
+[ext_resource type="Texture2D" uid="uid://o1bbihrfg53" path="res://assets/shotgun_red.png" id="5_ca6ph"]
+[ext_resource type="Texture2D" uid="uid://dwuwnoxb5a46s" path="res://assets/shotgun_green.png" id="6_7xet7"]
 [ext_resource type="Texture2D" uid="uid://c4uaa1j3y6adi" path="res://assets/weapon_wheel.png" id="6_i1x03"]
 
 [node name="WeaponWheel" type="Control" unique_id=527214665 node_paths=PackedStringArray("sectors")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_cytn0")
-sectors = [NodePath("ChooseWeaponYellow"), NodePath("ChooseWeaponGreen"), NodePath("ChooseWeaponRed"), NodePath("ChooseWeaponBlue")]
+sectors = [NodePath("ChooseWeaponYellow"), NodePath(""), NodePath(""), NodePath("")]
 
 [node name="ChooseWeaponYellow" type="TextureRect" parent="." unique_id=423102774]
 layout_mode = 0
-offset_left = 693.0
-offset_top = 283.0
-offset_right = 762.0
-offset_bottom = 352.0
-texture = ExtResource("2_byevm")
-expand_mode = 1
-
-[node name="ChooseWeaponGreen" type="TextureRect" parent="." unique_id=990414542]
-layout_mode = 0
-offset_left = 524.0
-offset_top = 437.0
-offset_right = 593.0
-offset_bottom = 506.0
-texture = ExtResource("3_a1cud")
-expand_mode = 1
-
-[node name="ChooseWeaponRed" type="TextureRect" parent="." unique_id=1663344976]
-layout_mode = 0
-offset_left = 392.0
-offset_top = 284.0
-offset_right = 461.0
-offset_bottom = 353.0
-texture = ExtResource("4_6grb5")
-expand_mode = 1
-
-[node name="ChooseWeaponBlue" type="TextureRect" parent="." unique_id=799573681]
-layout_mode = 0
-offset_left = 538.0
-offset_top = 140.0
-offset_right = 607.0
-offset_bottom = 209.0
-texture = ExtResource("5_nk1j1")
+offset_left = 635.0
+offset_top = 313.0
+offset_right = 782.6282
+offset_bottom = 348.0
+texture = ExtResource("2_mevbi")
 expand_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=2130150552]
 layout_mode = 0
-offset_left = 354.0
-offset_top = 100.0
-offset_right = 796.0
-offset_bottom = 543.5619
+offset_left = 320.0
+offset_top = 98.0
+offset_right = 807.0
+offset_bottom = 586.72095
 texture = ExtResource("6_i1x03")
+expand_mode = 1
+
+[node name="ChooseWeaponBlue" type="TextureRect" parent="." unique_id=590960712]
+layout_mode = 0
+offset_left = 506.0
+offset_top = 167.0
+offset_right = 653.6282
+offset_bottom = 202.0
+texture = ExtResource("4_52m6i")
+expand_mode = 1
+
+[node name="ChooseWeaponRed" type="TextureRect" parent="." unique_id=905810528]
+layout_mode = 0
+offset_left = 360.0
+offset_top = 302.0
+offset_right = 507.62817
+offset_bottom = 337.0
+texture = ExtResource("5_ca6ph")
+expand_mode = 1
+
+[node name="ChooseWeaponGreen" type="TextureRect" parent="." unique_id=1204621151]
+layout_mode = 0
+offset_left = 493.0
+offset_top = 450.0
+offset_right = 640.6282
+offset_bottom = 485.0
+texture = ExtResource("6_7xet7")
 expand_mode = 1
