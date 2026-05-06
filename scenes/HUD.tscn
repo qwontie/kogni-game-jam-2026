@@ -2,12 +2,15 @@
 
 [ext_resource type="Script" uid="uid://wfk8k2l2cmv6" path="res://scripts/hud_canvas.gd" id="1_fls4u"]
 [ext_resource type="PackedScene" uid="uid://dv1kldx0mm241" path="res://scenes/objects/WeaponWheel.tscn" id="2_1etfg"]
-[ext_resource type="Texture2D" path="res://assets/heart.png" id="2_7hsmw"]
+[ext_resource type="Texture2D" uid="uid://c2scul4uafsy6" path="res://assets/heart.png" id="2_7hsmw"]
 [ext_resource type="Script" uid="uid://p35x8y1i2umo" path="res://scripts/lives_count.gd" id="2_nysna"]
+[ext_resource type="FontFile" uid="uid://ccliofxp0gond" path="res://assets/font.otf" id="4_f6qnu"]
 [ext_resource type="Script" uid="uid://7gew100kvfri" path="res://scripts/stroop_text.gd" id="4_nysna"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jvwwx"]
-font_size = 256
+font = ExtResource("4_f6qnu")
+font_size = 450
+outline_size = 16
 
 [node name="Hud" type="Node2D" unique_id=926253432]
 
@@ -56,9 +59,10 @@ offset_right = 252.5
 offset_bottom = 87.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "STROOP"
+text = "BLUE"
 label_settings = SubResource("LabelSettings_jvwwx")
 script = ExtResource("4_nysna")
 
-[node name="WeaponWheel" parent="HudCanvas" unique_id=527214665 instance=ExtResource("2_1etfg")]
+[node name="WeaponWheel" parent="HudCanvas" unique_id=527214665 node_paths=PackedStringArray("sectors") instance=ExtResource("2_1etfg")]
 visible = false
+sectors = [NodePath("ChooseWeaponYellow"), null, null, null]
