@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ci1ys4oxun7sv" path="res://scenes/objects/Player.tscn" id="2_rarhs"]
 [ext_resource type="PackedScene" uid="uid://blbfo5km485nq" path="res://scenes/objects/Shotgun.tscn" id="3_rarhs"]
 [ext_resource type="PackedScene" uid="uid://b4aqkxqf3tug4" path="res://scenes/objects/Enemy.tscn" id="3_vcsgt"]
+[ext_resource type="Script" uid="uid://dhk3200bp3ro" path="res://scripts/GameState.gd" id="5_vcsgt"]
 
 [node name="Node2D" type="Node2D" unique_id=1885227677]
 
@@ -14,6 +15,11 @@ texture = ExtResource("1_0bbpv")
 position = Vector2(4, 26)
 
 [node name="Shotgun" parent="Player" unique_id=1449322296 instance=ExtResource("3_rarhs")]
+position = Vector2(-2, -1)
 
 [node name="Enemy" parent="." unique_id=451755257 instance=ExtResource("3_vcsgt")]
 position = Vector2(-480, -284)
+
+[node name="Node" type="Node" parent="." unique_id=1595296699]
+script = ExtResource("5_vcsgt")
+enemy_scene = ExtResource("3_vcsgt")

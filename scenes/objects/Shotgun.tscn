@@ -5,14 +5,16 @@
 [ext_resource type="Texture2D" uid="uid://dadngs84bxggb" path="res://assets/shotgun.png" id="2_4go78"]
 
 [node name="Shotgun" type="Node2D" unique_id=1449322296]
+position = Vector2(-12, -7)
 
 [node name="WeaponPivot" type="Marker2D" parent="." unique_id=1393623185]
+position = Vector2(6, 7)
 script = ExtResource("1_4go78")
 bullet_scene = ExtResource("2_1ihcl")
 
 [node name="Weapon" type="Sprite2D" parent="WeaponPivot" unique_id=883962505]
-position = Vector2(133, 2.0000005)
-scale = Vector2(0.640625, 0.640625)
+position = Vector2(117, 2)
+scale = Vector2(0.46093744, 0.4609375)
 texture = ExtResource("2_4go78")
 
 [node name="Muzzle" type="Marker2D" parent="WeaponPivot/Weapon" unique_id=458943736]
