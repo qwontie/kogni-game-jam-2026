@@ -97,7 +97,7 @@ func _build_scene() -> void:
 	title.add_theme_font_size_override("bold_font_size", 78)
 	title.add_theme_color_override("default_color", INK_BLACK)
 	stack.add_child(title)
-	_init_title_cycle(title, "STROOPSHIFT")
+	_init_title_cycle(title, "STROOPY")
 
 	var subtitle := Label.new()
 	subtitle.text = "Read the word - shoot bugs that match its MEANING\nusing a weapon in the word's COLOR.\nWrong shots hurt. Mismatched bugs heal on touch."

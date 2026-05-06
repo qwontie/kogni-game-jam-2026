@@ -89,7 +89,42 @@ var time_since_stroop: float = 0.0
 var time_since_healer_spawn: float = 0.0
 var ring_cooldown_timer: float = 0.0
 
+# --- AUDIO ---
+var _sfx_shoot: AudioStreamPlayer
+var _sfx_death: AudioStreamPlayer
+var _bg_music: AudioStreamPlayer
+
+func _setup_audio() -> void:
+	_bg_music = AudioStreamPlayer.new()
+	_bg_music.bus = "Master"
+	var music_stream := load("res://bg_music.wav")
+	if music_stream is AudioStreamWAV:
+		music_stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
+		music_stream.loop_end = 0
+	_bg_music.stream = music_stream
+	_bg_music.volume_db = -8.0
+	add_child(_bg_music)
+	_bg_music.play()
+
+	_sfx_shoot = AudioStreamPlayer.new()
+	_sfx_shoot.stream = load("res://shoot_sound_2.wav")
+	_sfx_shoot.volume_db = -4.0
+	add_child(_sfx_shoot)
+
+	_sfx_death = AudioStreamPlayer.new()
+	_sfx_death.stream = load("res://death_3.wav")
+	add_child(_sfx_death)
+
+func play_shoot() -> void:
+	if _sfx_shoot:
+		_sfx_shoot.play()
+
+func play_death() -> void:
+	if _sfx_death:
+		_sfx_death.play()
+
 func _ready():
+	_setup_audio()
 	# Autoloads enter the tree before the main scene, so the player may not
 	# exist yet — we lazily resolve it inside _process.
 	# Open with a burst so the player feels pressure right away instead of
@@ -196,6 +231,7 @@ func damage_player(amount: float = 20.0) -> void:
 	player_health_changed.emit(player_health, max_health)
 	if player_health <= 0.0:
 		is_dead = true
+		play_death()
 		player_died.emit()
 
 func heal_player(amount: float = 20.0) -> void:

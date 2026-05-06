@@ -50,3 +50,4 @@ func shoot():
 	else:
 		bullet.rotation = global_rotation
 	bullet.modulate = GameState.current_weapon_color
+	GameState.play_shoot()
