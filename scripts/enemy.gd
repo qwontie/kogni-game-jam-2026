@@ -3,14 +3,17 @@ extends CharacterBody2D
 @export var speed: float = 150.0
 @export var detection_radius: float = 300.0
 @export var wander_speed_factor: float = 0.5 # Wanders slower than chasing
+@export var enemy_textures: Array[Texture2D] = []
 
 var player: CharacterBody2D = null
 var wander_direction: Vector2 = Vector2.ZERO
 var wander_timer: float = 0.0
+@onready var sprite: Sprite2D = $Sprite2D
 
 func _ready():
 	# Find the player using the group we created
 	player = get_tree().get_first_node_in_group("player")
+	_pick_random_texture()
 	_pick_new_wander_direction()
 
 func _physics_process(delta):
@@ -40,6 +43,11 @@ func _pick_new_wander_direction():
 	wander_direction = Vector2(cos(random_angle), sin(random_angle))
 	# Stay in this direction for 1 to 3 seconds
 	wander_timer = randf_range(1.0, 3.0)
+
+func _pick_random_texture() -> void:
+	if enemy_textures.is_empty():
+		return
+	sprite.texture = enemy_textures.pick_random()
 	
 func take_damage():
 	if player != null and player.has_method("reward_enemy_kill"):

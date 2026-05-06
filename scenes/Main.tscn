@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b4aqkxqf3tug4" path="res://scenes/objects/Enemy.tscn" id="3_vcsgt"]
 [ext_resource type="Script" uid="uid://dhk3200bp3ro" path="res://scripts/GameState.gd" id="5_vcsgt"]
 [ext_resource type="PackedScene" uid="uid://brrfjosb2x8np" path="res://scenes/HUD.tscn" id="6_3sj1l"]
+[ext_resource type="Script" path="res://scripts/camera_follow.gd" id="7_mywjv"]
 
 [node name="Node2D" type="Node2D" unique_id=1885227677]
 
@@ -26,3 +27,6 @@ script = ExtResource("5_vcsgt")
 enemy_scene = ExtResource("3_vcsgt")
 
 [node name="Hud" parent="." unique_id=762178872 instance=ExtResource("6_3sj1l")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=364667541]
+script = ExtResource("7_mywjv")

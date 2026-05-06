@@ -1,19 +1,21 @@
 [gd_scene format=3 uid="uid://b4aqkxqf3tug4"]
 
-[ext_resource type="Texture2D" uid="uid://bcni0q00pcp0n" path="res://textures/proto/kenney_prototype-textures/PNG/Green/texture_05.png" id="1_n76d8"]
+[ext_resource type="Texture2D" uid="uid://m36n47o7c01p" path="res://assets/enemy_red.png" id="1_2te4u"]
 [ext_resource type="Script" uid="uid://dq4tq6tjjr5di" path="res://scripts/enemy.gd" id="1_qpkod"]
+[ext_resource type="Texture2D" uid="uid://bgc00qro4u4r7" path="res://assets/enemy_green.png" id="2_qpkod"]
+[ext_resource type="Texture2D" uid="uid://cktuwftudeweb" path="res://assets/enemy_blue.png" id="3_v1y3n"]
+[ext_resource type="Texture2D" uid="uid://cm1fgtfbiv547" path="res://assets/enemy_yellow.png" id="4_y4i6e"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_n76d8"]
-size = Vector2(44, 45)
+[sub_resource type="CircleShape2D" id="CircleShape2D_n76d8"]
+radius = 34.0
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1637897088 groups=["enemy"]]
 script = ExtResource("1_qpkod")
+enemy_textures = Array[Texture2D]([ExtResource("1_2te4u"), ExtResource("2_qpkod"), ExtResource("3_v1y3n"), ExtResource("4_y4i6e")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1484853480]
-position = Vector2(21, 23.5)
-shape = SubResource("RectangleShape2D_n76d8")
+shape = SubResource("CircleShape2D_n76d8")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1648795275]
-position = Vector2(20.500004, 22)
-scale = Vector2(0.040039063, 0.044921875)
-texture = ExtResource("1_n76d8")
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("1_2te4u")

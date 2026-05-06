@@ -16,7 +16,3 @@ texture = ExtResource("2_id4ih")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=844642969]
 shape = SubResource("CircleShape2D_b5y4o")
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=11189176]
-position_smoothing_enabled = true
-position_smoothing_speed = 12.0
