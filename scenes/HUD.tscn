@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://brrfjosb2x8np"]
 
 [ext_resource type="Script" uid="uid://wfk8k2l2cmv6" path="res://scripts/hud_canvas.gd" id="1_fls4u"]
-[ext_resource type="PackedScene" uid="uid://dv1kldx0mm241" path="res://scenes/WeaponWheel.tscn" id="2_1etfg"]
+[ext_resource type="PackedScene" uid="uid://dv1kldx0mm241" path="res://scenes/objects/WeaponWheel.tscn" id="2_1etfg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jvwwx"]
 font_size = 256
