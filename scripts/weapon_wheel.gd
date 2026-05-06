@@ -26,7 +26,7 @@ func _process(_delta):
 func _highlight(index: int):
 	for i in sectors.size():
 		sectors[i].modulate.a = 0.5 if i != index else 1.0
-	print("selected: ", colors[index])	
+	print("selected: ", colors[index])
 
 func open():
 	center = get_viewport_rect().size / 2
