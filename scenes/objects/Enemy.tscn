@@ -11,7 +11,6 @@ radius = 34.0
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1637897088 groups=["enemy"]]
 script = ExtResource("1_qpkod")
-enemy_textures = Array[Texture2D]([ExtResource("1_2te4u"), ExtResource("2_qpkod"), ExtResource("3_v1y3n"), ExtResource("4_y4i6e")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1484853480]
 shape = SubResource("CircleShape2D_n76d8")

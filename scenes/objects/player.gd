@@ -160,7 +160,7 @@ func _try_perfect_dodge() -> void:
 			_flash(Color.CYAN)
 			return
 
-func take_damage(amount: int = 1) -> void:
+func take_damage(amount: float = 20.0) -> void:
 	if is_invulnerable():
 		return
 	hurt_timer = hurt_invulnerability
@@ -168,7 +168,7 @@ func take_damage(amount: int = 1) -> void:
 	GameState.damage_player(amount)
 	_flash(Color.RED)
 
-func take_attached_damage(amount: int = 1) -> void:
+func take_attached_damage(amount: float = 10.0) -> void:
 	GameState.damage_player(amount)
 	_flash(Color.RED)
 

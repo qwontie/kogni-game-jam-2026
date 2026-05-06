@@ -14,9 +14,9 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 func _on_body_entered(body):
 	if body.is_in_group("player"):
-		return  # ignore player
+		return
 	if body.has_method("is_attached_to_player") and body.is_attached_to_player():
 		return
 	if body.has_method("take_damage"):
-		body.take_damage()
+		body.take_damage(modulate)
 	queue_free()

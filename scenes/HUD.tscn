@@ -1,9 +1,11 @@
-[gd_scene format=3 uid="uid://brrfjosb2x8np"]
+[gd_scene load_steps=10 format=3 uid="uid://brrfjosb2x8np"]
 
 [ext_resource type="Script" uid="uid://wfk8k2l2cmv6" path="res://scripts/hud_canvas.gd" id="1_fls4u"]
 [ext_resource type="PackedScene" uid="uid://dv1kldx0mm241" path="res://scenes/objects/WeaponWheel.tscn" id="2_1etfg"]
 [ext_resource type="Texture2D" uid="uid://c2scul4uafsy6" path="res://assets/heart.png" id="2_7hsmw"]
-[ext_resource type="Script" uid="uid://p35x8y1i2umo" path="res://scripts/lives_count.gd" id="2_nysna"]
+[ext_resource type="Script" path="res://scripts/hp_bar.gd" id="3_hpbar"]
+[ext_resource type="Shader" path="res://shaders/halftime.gdshader" id="3_halft"]
+[ext_resource type="Script" path="res://scripts/halftime.gd" id="4_halft"]
 [ext_resource type="FontFile" uid="uid://ccliofxp0gond" path="res://assets/font.otf" id="4_f6qnu"]
 [ext_resource type="Script" uid="uid://7gew100kvfri" path="res://scripts/stroop_text.gd" id="4_nysna"]
 
@@ -12,39 +14,37 @@ font = ExtResource("4_f6qnu")
 font_size = 450
 outline_size = 16
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_halft"]
+shader = ExtResource("3_halft")
+shader_parameter/intensity = 0.0
+shader_parameter/ink_color = Color(0.05, 0.04, 0.08, 1)
+shader_parameter/glow_color = Color(0.96, 0.86, 0.42, 1)
+
 [node name="Hud" type="Node2D" unique_id=926253432]
 
 [node name="HudCanvas" type="CanvasLayer" parent="." unique_id=1043709710]
 script = ExtResource("1_fls4u")
 
-[node name="LivesCount" type="HBoxContainer" parent="HudCanvas" unique_id=309498919]
-anchors_preset = 2
+[node name="HpBar" type="Control" parent="HudCanvas" unique_id=309498919]
+anchor_left = 0.0
 anchor_top = 1.0
+anchor_right = 0.0
 anchor_bottom = 1.0
-offset_top = -67.0
-offset_right = 372.0
+offset_left = 24.0
+offset_top = -110.0
+offset_right = 424.0
+offset_bottom = -24.0
 grow_vertical = 0
-script = ExtResource("2_nysna")
+script = ExtResource("3_hpbar")
+heart_texture = ExtResource("2_7hsmw")
 
-[node name="Heart1" type="TextureRect" parent="HudCanvas/LivesCount" unique_id=803554999]
-layout_mode = 2
-texture = ExtResource("2_7hsmw")
-
-[node name="Heart2" type="TextureRect" parent="HudCanvas/LivesCount" unique_id=1359847819]
-layout_mode = 2
-texture = ExtResource("2_7hsmw")
-
-[node name="Heart3" type="TextureRect" parent="HudCanvas/LivesCount" unique_id=1736168301]
-layout_mode = 2
-texture = ExtResource("2_7hsmw")
-
-[node name="Heart4" type="TextureRect" parent="HudCanvas/LivesCount" unique_id=1388924816]
-layout_mode = 2
-texture = ExtResource("2_7hsmw")
-
-[node name="Heart5" type="TextureRect" parent="HudCanvas/LivesCount" unique_id=459537442]
-layout_mode = 2
-texture = ExtResource("2_7hsmw")
+[node name="HalftimeOverlay" type="ColorRect" parent="HudCanvas"]
+material = SubResource("ShaderMaterial_halft")
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(1, 1, 1, 1)
+script = ExtResource("4_halft")
 
 [node name="StroopText" type="Label" parent="HudCanvas" unique_id=674216282]
 visible = false
