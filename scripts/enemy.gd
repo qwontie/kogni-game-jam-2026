@@ -48,6 +48,12 @@ func _physics_process(delta):
 		_update_attached(delta)
 		return
 
+	# Healers should never physically push the player around. Trigger the heal
+	# the moment we overlap, regardless of which body is moving — otherwise the
+	# player slides along the healer's collision and the controls feel off.
+	if is_healer and _try_heal_player_on_overlap():
+		return
+
 	var peaceful := is_healer or GameState.is_peace
 	if not peaceful and _can_see_player():
 		var direction = global_position.direction_to(player.global_position)
@@ -143,6 +149,17 @@ func try_detach_with_dash(dash_direction: Vector2) -> bool:
 	if dash_direction.normalized().dot(attach_side_direction) > detach_opposite_dot:
 		return false
 	_detach()
+	return true
+
+func _try_heal_player_on_overlap() -> bool:
+	if player == null or not is_instance_valid(player):
+		return false
+	# Player radius ~62, enemy radius ~34 → contact at ~96. Small buffer so the
+	# heal fires just before the collision shapes start sliding against each other.
+	if global_position.distance_to(player.global_position) > 100.0:
+		return false
+	GameState.heal_player(GameState.heal_amount)
+	queue_free()
 	return true
 
 func _on_contact() -> void:
