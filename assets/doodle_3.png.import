@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dcremy1a75afw"
-path="res://.godot/imported/Drawing-layerExport (1).png-6818291fd783600e96316ce98bad8fe3.ctex"
+uid="uid://dx023e1yalgu4"
+path="res://.godot/imported/doodle_3.png-6253311d1f290102fe9307c7924176dc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Drawing-layerExport (1).png"
-dest_files=["res://.godot/imported/Drawing-layerExport (1).png-6818291fd783600e96316ce98bad8fe3.ctex"]
+source_file="res://assets/doodle_3.png"
+dest_files=["res://.godot/imported/doodle_3.png-6253311d1f290102fe9307c7924176dc.ctex"]
 
 [params]
 

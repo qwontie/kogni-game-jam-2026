@@ -97,7 +97,7 @@ var _bg_music: AudioStreamPlayer
 func _setup_audio() -> void:
 	#_bg_music = AudioStreamPlayer.new()
 	#_bg_music.bus = "Master"
-	#var music_stream := load("res://bg_music.wav")
+	#var music_stream := load("res://assets/audio/bg_music.wav")
 	#if music_stream is AudioStreamWAV:
 		#music_stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
 		#music_stream.loop_end = 0
@@ -107,12 +107,12 @@ func _setup_audio() -> void:
 	#_bg_music.play()
 
 	_sfx_shoot = AudioStreamPlayer.new()
-	_sfx_shoot.stream = load("res://shoot_sound_2.wav")
+	_sfx_shoot.stream = load("res://assets/audio/shoot_sound_2.wav")
 	_sfx_shoot.volume_db = -4.0
 	add_child(_sfx_shoot)
 
 	#_sfx_death = AudioStreamPlayer.new()
-	#_sfx_death.stream = load("res://death_3.wav")
+	#_sfx_death.stream = load("res://assets/audio/death_3.wav")
 	#add_child(_sfx_death)
 
 func play_shoot() -> void:
