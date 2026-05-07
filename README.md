@@ -8,7 +8,7 @@ A top-down arcade shooter built around a **double Stroop effect** — where read
 > Project demo is currently available on: 
 https://stroopy.viperr.vip 
 
-<img src="assets/DEMO.gif" width="500" alt="demo"/>
+<img src="docs/DEMO.gif" width="500" alt="demo"/>
 
 
 
