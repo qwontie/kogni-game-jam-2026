@@ -56,7 +56,6 @@ func _build_scene() -> void:
 	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(center)
 
-	# Hand-drawn paper card behind the menu so content reads against the swirls.
 	var card := PanelContainer.new()
 	card.custom_minimum_size = Vector2(560, 720)
 	card.add_theme_stylebox_override("panel", _paper_card_style())
@@ -133,7 +132,7 @@ func _build_scene() -> void:
 	_build_transition_overlay()
 
 const TITLE_PALETTE := [STROOP_RED, STROOP_BLUE, STROOP_YELLOW, STROOP_GREEN]
-const TITLE_CYCLE_SPEED := 0.18  # palette steps per second
+const TITLE_CYCLE_SPEED := 0.18  
 const TITLE_REFRESH_INTERVAL := 0.06
 
 var _title_label: RichTextLabel
@@ -149,7 +148,6 @@ func _init_title_cycle(label: RichTextLabel, text: String) -> void:
 	var rng := RandomNumberGenerator.new()
 	rng.randomize()
 	for i in text.length():
-		# Stagger letters along the palette plus a small random jitter.
 		_title_phases.append(float(i) * 0.35 + rng.randf_range(-0.12, 0.12))
 	_refresh_title_colors()
 
@@ -158,7 +156,6 @@ func _palette_color_at(phase: float) -> Color:
 	var p := fposmod(phase, float(n))
 	var idx := int(floor(p))
 	var frac := p - float(idx)
-	# Smooth ease so transitions linger on the pure colours, not the mid-blend.
 	frac = smoothstep(0.0, 1.0, frac)
 	return TITLE_PALETTE[idx].lerp(TITLE_PALETTE[(idx + 1) % n], frac)
 
@@ -174,7 +171,7 @@ func _refresh_title_colors() -> void:
 	out += "[/center]"
 	_title_label.text = out
 
-var _bacteria: Array = []  # [{node, vel}]
+var _bacteria: Array = [] 
 
 func _build_floating_doodles() -> void:
 	var rng := RandomNumberGenerator.new()
@@ -257,7 +254,6 @@ func _ink_button_style(bg: Color, border: Color, width: int) -> StyleBoxFlat:
 	style.bg_color = bg
 	style.border_color = border
 	style.set_border_width_all(width)
-	# Slightly asymmetric corner radii give a hand-drawn wobble.
 	style.corner_radius_top_left = 14
 	style.corner_radius_top_right = 22
 	style.corner_radius_bottom_left = 24

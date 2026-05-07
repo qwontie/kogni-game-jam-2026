@@ -50,9 +50,6 @@ func _physics_process(delta):
 		_update_attached(delta)
 		return
 
-	# Healers should never physically push the player around. Trigger the heal
-	# the moment we overlap, regardless of which body is moving — otherwise the
-	# player slides along the healer's collision and the controls feel off.
 	if is_healer and _try_heal_player_on_overlap():
 		return
 
@@ -115,7 +112,6 @@ func take_damage(bullet_color: Color = Color.WHITE):
 		GameState.add_kill()
 		die()
 	else:
-		# Wrong weapon, or wrong target (healer) — punish the player but spare the bug.
 		if player != null and player.has_method("take_damage"):
 			player.take_damage(GameState.wrong_shot_damage)
 
@@ -126,8 +122,6 @@ func die():
 	sound.play()
 	sound.finished.connect(sound.queue_free)
 	var particles = GPUParticles2D.new()
-	# Detach from the dying enemy so the corpse can free immediately while the
-	# burst plays out at the death position.
 	get_parent().add_child(particles)
 	particles.global_position = global_position
 
@@ -166,7 +160,6 @@ func die():
 	$Sprite2D.visible = false
 	collision_shape.set_deferred("disabled", true)
 
-	# Free the enemy now; particles live on their own and clean themselves up.
 	var burst_lifetime: float = particles.lifetime
 	queue_free()
 	await particles.get_tree().create_timer(burst_lifetime).timeout
@@ -194,8 +187,6 @@ func try_detach_with_dash(dash_direction: Vector2) -> bool:
 func _try_heal_player_on_overlap() -> bool:
 	if player == null or not is_instance_valid(player):
 		return false
-	# Player radius ~62, enemy radius ~34 → contact at ~96. Small buffer so the
-	# heal fires just before the collision shapes start sliding against each other.
 	if global_position.distance_to(player.global_position) > 100.0:
 		return false
 	GameState.heal_player(GameState.heal_amount)
@@ -211,11 +202,8 @@ func _on_contact() -> void:
 				queue_free()
 				return
 			if GameState.is_peace:
-				# Truce — bump and slide, no attach, no damage.
 				return
 			if _attached_count() >= max_attached_global:
-				# Already enough bugs latched on — punch and die instead of
-				# piling on (the dogpile is what causes the position glitch).
 				if collider.has_method("take_damage"):
 					collider.take_damage(GameState.hit_damage)
 				queue_free()

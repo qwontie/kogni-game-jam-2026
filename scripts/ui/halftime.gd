@@ -30,13 +30,10 @@ func _process(delta: float) -> void:
 		if GameState.is_peace:
 			GameState.is_peace = false
 		return
-	# `delta` is already scaled by Engine.time_scale — undo it so the
-	# halftime effect runs in real wall-clock seconds, not in-game seconds.
 	var ts: float = max(Engine.time_scale, 0.0001)
 	var real_dt: float = delta / ts
 	remaining -= real_dt
 	var t: float = clampf(remaining / duration, 0.0, 1.0)
-	# Quadratic ease — sit deep in slow-mo, then snap back.
 	var ease_t: float = t * t
 	Engine.time_scale = lerpf(1.0, slow_factor, ease_t)
 	if shader_mat:

@@ -29,5 +29,4 @@ func _draw() -> void:
 	var outline_col := Color(color.r, color.g, color.b, alpha)
 	draw_circle(Vector2.ZERO, r, fill_col)
 	draw_arc(Vector2.ZERO, r, 0.0, TAU, 32, outline_col, 3.0)
-	# Small inner dot for clarity at small sizes.
 	draw_circle(Vector2.ZERO, 4.0, outline_col)

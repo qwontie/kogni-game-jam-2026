@@ -4,8 +4,6 @@ extends Control
 @export var bar_width: float = 280.0
 @export var bar_height: float = 38.0
 @export var heart_size: float = 56.0
-# v = real^k. With k=1.6 the last 10% visible bar ≈ the last 25% of real HP,
-# so the final sliver "lasts longer" — clutch moments feel earned.
 @export var visual_curve_exponent: float = 1.6
 
 var current_visual: float = 1.0
@@ -51,7 +49,6 @@ func _draw() -> void:
 		)
 		_draw_doodle_fill(fill_rect, _hp_color(current_visual))
 
-	# Sketchy outline last so it sits on top.
 	_draw_doodle_rect(bar_rect, Color(0.07, 0.07, 0.08), 2.5, 3)
 
 func _hp_color(v: float) -> Color:

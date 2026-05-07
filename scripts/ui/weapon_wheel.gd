@@ -13,8 +13,6 @@ func _process(_delta):
 		return
 	if colors.is_empty() or sectors.is_empty():
 		return
-	# Split the WHOLE viewport into 4 quadrants by the 45° diagonals:
-	# right -> 0 (Yellow), down -> 1 (Green), left -> 2 (Red), up -> 3 (Blue).
 	var screen_size = get_viewport().get_visible_rect().size
 	var mouse = get_viewport().get_mouse_position() - screen_size * 0.5
 	if mouse == Vector2.ZERO:

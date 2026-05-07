@@ -3,14 +3,12 @@ extends Node
 const ENEMY_SCENE := preload("res://scenes/entities/Enemy.tscn")
 const SPAWN_INDICATOR_SCRIPT := preload("res://scripts/systems/spawn_indicator.gd")
 
-# --- DIFFICULTY SCALING ---
 var time_elapsed: float = 0.0
 @export_group("Difficulty Scaling")
 @export var difficulty_ramp: float = 0.45
 @export var min_spawn_interval: float = 0.5
 @export var min_stroop_interval: float = 2.0
 
-# --- HEALTH ---
 @export_group("Health")
 @export var max_health: float = 100.0
 @export var hit_damage: float = 20.0
@@ -19,11 +17,8 @@ var time_elapsed: float = 0.0
 
 var player_health: float = 100.0
 
-# True while the Stroop word + halftime overlay is on screen — enemies act
-# friendly so the player can read the prompt without taking chip damage.
 var is_peace: bool = false
 
-# --- SCORE ---
 const SCORE_SAVE_PATH := "user://score.save"
 var score: int = 0
 var total_score: int = 0
@@ -32,7 +27,6 @@ var is_dead: bool = false
 signal score_changed(score: int, total: int)
 signal player_died
 
-# --- STROOP / TARGETS ---
 var current_weapon_color: Color = Color.RED
 var target_enemy_color: Color = Color.RED
 var target_weapon_color: Color = Color.RED
@@ -41,9 +35,6 @@ signal stroop_changed(text: String, color: Color)
 signal stroop_target_changed(enemy_color: Color, weapon_color: Color)
 signal player_health_changed(health: float, max_health: float)
 
-# Latest stroop snapshot — late-subscribing HUD nodes replay this in their
-# own _ready so they don't miss the first emit fired by the autoload before
-# the main scene was alive.
 var last_stroop_text: String = ""
 var last_stroop_color: Color = Color.WHITE
 var has_stroop: bool = false
@@ -55,7 +46,6 @@ const COLOR_KEYS := ["red", "green", "blue", "yellow"]
 var stroop_timer: float = 10.0
 @export var stroop_interval: float = 10.0
 
-# --- SPAWNER ---
 @export_group("Spawner Settings")
 @export var spawn_interval: float = 1.9
 @export var min_distance: float = 400.0
@@ -89,31 +79,16 @@ var time_since_stroop: float = 0.0
 var time_since_healer_spawn: float = 0.0
 var ring_cooldown_timer: float = 0.0
 
-# --- AUDIO ---
 var _sfx_shoot: AudioStreamPlayer
 var _sfx_death: AudioStreamPlayer
 var _bg_music: AudioStreamPlayer
 
 func _setup_audio() -> void:
-	#_bg_music = AudioStreamPlayer.new()
-	#_bg_music.bus = "Master"
-	#var music_stream := load("res://assets/audio/bg_music.wav")
-	#if music_stream is AudioStreamWAV:
-		#music_stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
-		#music_stream.loop_end = 0
-	#_bg_music.stream = music_stream
-	#_bg_music.volume_db = -8.0
-	#add_child(_bg_music)
-	#_bg_music.play()
 
 	_sfx_shoot = AudioStreamPlayer.new()
 	_sfx_shoot.stream = load("res://assets/audio/shoot_sound_2.wav")
 	_sfx_shoot.volume_db = -4.0
 	add_child(_sfx_shoot)
-
-	#_sfx_death = AudioStreamPlayer.new()
-	#_sfx_death.stream = load("res://assets/audio/death_3.wav")
-	#add_child(_sfx_death)
 
 func play_shoot() -> void:
 	if _sfx_shoot:
@@ -125,10 +100,6 @@ func play_death() -> void:
 
 func _ready():
 	_setup_audio()
-	# Autoloads enter the tree before the main scene, so the player may not
-	# exist yet — we lazily resolve it inside _process.
-	# Open with a burst so the player feels pressure right away instead of
-	# wandering an empty arena waiting for the first ticks.
 	phase = Phase.BURST
 	phase_timer = randf_range(burst_duration_min, burst_duration_max)
 	spawn_timer = 0.3
@@ -155,8 +126,6 @@ func _process(delta):
 
 	if player_ref == null or not is_instance_valid(player_ref):
 		player_ref = get_tree().get_first_node_in_group("player")
-	# Don't spawn during the halftime truce — the player should read the prompt
-	# before new bugs walk on stage.
 	if player_ref == null or is_peace or is_dead:
 		return
 
@@ -169,8 +138,6 @@ func _process(delta):
 		var rate_mult: float = calm_rate_mult if phase == Phase.CALM else burst_rate_mult
 		var actual_spawn_rate := maxf(min_spawn_interval, (spawn_interval * rate_mult) / difficulty_modifier)
 		spawn_timer = actual_spawn_rate
-		# Soft cap — if the arena is already crowded, skip this tick so the
-		# player gets a moment to clear bodies before the next wave drops.
 		if _alive_enemy_count() < max_alive_enemies:
 			_trigger_pattern(difficulty_modifier)
 
@@ -211,7 +178,6 @@ func _pick_pattern() -> String:
 func _emit_stroop():
 	var text_index = randi() % COLOR_NAMES.size()
 	var color_index = randi() % COLOR_VALUES.size()
-	# 25% chance the word's meaning and rendered color match — keeps the player honest.
 	if randf() > 0.25:
 		while color_index == text_index:
 			color_index = randi() % COLOR_VALUES.size()
@@ -270,8 +236,6 @@ func _save_total_score() -> void:
 		return
 	f.store_var(total_score)
 
-# --- Spawn patterns ---
-
 func _spawn_single(difficulty_modifier: float) -> void:
 	var color_key := _pick_spawn_color()
 	var pos := _edge_spawn_point(randf_range(0.0, TAU))
@@ -308,15 +272,12 @@ func _spawn_ring(difficulty_modifier: float) -> void:
 		var pos := origin + Vector2(cos(angle), sin(angle)) * radius
 		_schedule_enemy(_pick_spawn_color(), pos, float(i) * 0.06, difficulty_modifier)
 	ring_cooldown_timer = ring_cooldown
-	# Force a long calm so the player gets breathing room after pushing through.
 	phase = Phase.CALM
 	phase_timer = calm_duration_max + 1.0
 
-# --- Color selection ---
 
 func _pick_spawn_color() -> String:
 	var target_idx := _color_index(target_enemy_color)
-	# Pity healer: low HP + healer drought → guarantee a non-target color.
 	if max_health > 0.0 \
 			and (player_health / max_health) < pity_heal_hp_threshold \
 			and time_since_healer_spawn > pity_heal_drought:
@@ -340,15 +301,12 @@ func _color_index(c: Color) -> int:
 			return i
 	return 0
 
-# --- Spawn execution ---
-
 func _schedule_enemy(color_key: String, pos: Vector2, delay: float, difficulty_modifier: float) -> void:
 	var key_idx := COLOR_KEYS.find(color_key)
 	if key_idx < 0:
 		key_idx = 0
 	var color_val: Color = COLOR_VALUES[key_idx]
 	if key_idx != _color_index(target_enemy_color):
-		# A non-target enemy will spawn → it's a healer relative to the current Stroop.
 		time_since_healer_spawn = 0.0
 	var parent := _spawn_parent()
 	if parent == null:
@@ -378,8 +336,6 @@ func _spawn_parent() -> Node:
 		return player_ref.get_parent()
 	return get_tree().current_scene
 
-# --- Edge spawn + safe cone ---
-
 func _edge_spawn_point(angle: float) -> Vector2:
 	var origin: Vector2 = player_ref.global_position
 	var safe_angle := _apply_safe_cone(angle)
@@ -399,7 +355,6 @@ func _edge_spawn_point(angle: float) -> Vector2:
 			var point := center + dir * t
 			if point.distance_to(origin) >= min_distance:
 				return point
-	# Fallback: ring around player if we couldn't compute a sane edge point.
 	var radius := randf_range(min_distance, max_distance)
 	return origin + dir * radius
 
@@ -413,6 +368,5 @@ func _apply_safe_cone(angle: float) -> float:
 	var diff := wrapf(angle - face_angle, -PI, PI)
 	var cone := deg_to_rad(safe_cone_degrees)
 	if absf(diff) <= cone:
-		# Flip to the back arc so the player isn't ambushed face-first.
 		return angle + PI
 	return angle
