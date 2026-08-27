@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://blbfo5km485nq"]
+
+[ext_resource type="Script" uid="uid://ciaa4hgxlep27" path="res://scripts/entities/weapon_pivot.gd" id="1_4go78"]
+[ext_resource type="PackedScene" path="res://scenes/entities/Bullet.tscn" id="2_1ihcl"]
+[ext_resource type="Texture2D" uid="uid://dadngs84bxggb" path="res://assets/sprites/weapons/shotgun.png" id="2_4go78"]
+
+[node name="Shotgun" type="Node2D" unique_id=1449322296]
+position = Vector2(-12, -7)
+
+[node name="WeaponPivot" type="Marker2D" parent="." unique_id=1393623185]
+position = Vector2(6, 7)
+script = ExtResource("1_4go78")
+bullet_scene = ExtResource("2_1ihcl")
+
+[node name="Weapon" type="Sprite2D" parent="WeaponPivot" unique_id=883962505]
+position = Vector2(117, 2)
+scale = Vector2(0.46093744, 0.4609375)
+texture = ExtResource("2_4go78")
+
+[node name="Muzzle" type="Marker2D" parent="WeaponPivot/Weapon" unique_id=458943736]
+position = Vector2(-118, -5)

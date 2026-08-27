@@ -1,16 +1,13 @@
 [gd_scene format=3 uid="uid://bjk368xmoxfho"]
 
-[ext_resource type="Texture2D" uid="uid://db5xv3dsbtu32" path="res://assets/background_paper.jpg" id="1_bgpap"]
-[ext_resource type="PackedScene" uid="uid://ci1ys4oxun7sv" path="res://scenes/objects/Player.tscn" id="2_rarhs"]
-[ext_resource type="PackedScene" uid="uid://blbfo5km485nq" path="res://scenes/objects/Shotgun.tscn" id="3_rarhs"]
-[ext_resource type="PackedScene" uid="uid://b4aqkxqf3tug4" path="res://scenes/objects/Enemy.tscn" id="3_vcsgt"]
-[ext_resource type="PackedScene" uid="uid://brrfjosb2x8np" path="res://scenes/HUD.tscn" id="6_3sj1l"]
-[ext_resource type="Script" uid="uid://dginj31ls6ljx" path="res://scripts/camera_follow.gd" id="7_mywjv"]
-[ext_resource type="Texture2D" uid="uid://dfwwcloueb26v" path="res://assets/Drawing-layerExport.png" id="8_dr0"]
-[ext_resource type="Texture2D" uid="uid://dcremy1a75afw" path="res://assets/Drawing-layerExport (1).png" id="9_dr1"]
-[ext_resource type="Texture2D" uid="uid://b4t1wykiw3b62" path="res://assets/Drawing-layerExport (2).png" id="10_dr2"]
-[ext_resource type="Texture2D" uid="uid://dx023e1yalgu4" path="res://assets/Drawing-layerExport (3).png" id="11_dr3"]
-[ext_resource type="AudioStream" uid="uid://bx5ew1mwks1xk" path="res://bg_music.wav" id="11_wp0k4"]
+[ext_resource type="Texture2D" uid="uid://db5xv3dsbtu32" path="res://assets/sprites/background/background_paper.jpg" id="1_bgpap"]
+[ext_resource type="PackedScene" uid="uid://ci1ys4oxun7sv" path="res://scenes/entities/Player.tscn" id="2_rarhs"]
+[ext_resource type="PackedScene" uid="uid://blbfo5km485nq" path="res://scenes/entities/Shotgun.tscn" id="3_rarhs"]
+[ext_resource type="PackedScene" uid="uid://b4aqkxqf3tug4" path="res://scenes/entities/Enemy.tscn" id="3_vcsgt"]
+[ext_resource type="PackedScene" uid="uid://brrfjosb2x8np" path="res://scenes/ui/hud/HUD.tscn" id="6_3sj1l"]
+[ext_resource type="Script" uid="uid://dginj31ls6ljx" path="res://scripts/systems/camera_follow.gd" id="7_mywjv"]
+[ext_resource type="Script" uid="uid://csc442ia5su3q" path="res://scripts/systems/doodle_spawner.gd" id="8_doodle"]
+[ext_resource type="AudioStream" uid="uid://bx5ew1mwks1xk" path="res://assets/audio/bg_music.wav" id="11_wp0k4"]
 
 [node name="Node2D" type="Node2D" unique_id=1885227677]
 
@@ -19,113 +16,23 @@ z_index = -100
 texture_repeat = 2
 texture = ExtResource("1_bgpap")
 region_enabled = true
-region_rect = Rect2(-6000, -6000, 12000, 12000)
+region_rect = Rect2(-200000, -200000, 400000, 400000)
 
-[node name="Drawings" type="Node2D" parent="." unique_id=1606542337]
+[node name="Doodles" type="Node2D" parent="." unique_id=1606542337]
 modulate = Color(1, 1, 1, 0.35)
 z_index = -50
-
-[node name="D0" type="Sprite2D" parent="Drawings" unique_id=217791283]
-position = Vector2(-720, -380)
-rotation = -0.18
-scale = Vector2(1.6, 1.6)
-texture = ExtResource("8_dr0")
-
-[node name="D1" type="Sprite2D" parent="Drawings" unique_id=1053201680]
-position = Vector2(640, -540)
-rotation = 0.22
-scale = Vector2(1.4, 1.4)
-texture = ExtResource("9_dr1")
-
-[node name="D2" type="Sprite2D" parent="Drawings" unique_id=1709222494]
-position = Vector2(-1100, 420)
-rotation = 0.35
-scale = Vector2(1.8, 1.8)
-texture = ExtResource("10_dr2")
-
-[node name="D3" type="Sprite2D" parent="Drawings" unique_id=1979604228]
-position = Vector2(980, 720)
-rotation = -0.42
-scale = Vector2(2, 2)
-texture = ExtResource("11_dr3")
-
-[node name="D4" type="Sprite2D" parent="Drawings" unique_id=604258104]
-position = Vector2(-1600, -1100)
-rotation = 0.08
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("9_dr1")
-
-[node name="D5" type="Sprite2D" parent="Drawings" unique_id=1473815518]
-position = Vector2(1700, -260)
-rotation = -0.55
-scale = Vector2(1.7, 1.7)
-texture = ExtResource("8_dr0")
-
-[node name="D6" type="Sprite2D" parent="Drawings" unique_id=2050957675]
-position = Vector2(220, 1300)
-rotation = 0.6
-scale = Vector2(1.3, 1.3)
-texture = ExtResource("10_dr2")
-
-[node name="D7" type="Sprite2D" parent="Drawings" unique_id=890029510]
-position = Vector2(-2100, 200)
-rotation = -0.12
-scale = Vector2(1.9, 1.9)
-texture = ExtResource("11_dr3")
-
-[node name="D8" type="Sprite2D" parent="Drawings" unique_id=492186977]
-position = Vector2(2200, 1500)
-rotation = 0.27
-scale = Vector2(1.6, 1.6)
-texture = ExtResource("8_dr0")
-
-[node name="D9" type="Sprite2D" parent="Drawings" unique_id=1817846052]
-position = Vector2(-380, -1700)
-rotation = -0.3
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("10_dr2")
-
-[node name="D10" type="Sprite2D" parent="Drawings" unique_id=198986989]
-position = Vector2(-2400, -1900)
-rotation = 0.45
-scale = Vector2(2.1, 2.1)
-texture = ExtResource("9_dr1")
-
-[node name="D11" type="Sprite2D" parent="Drawings" unique_id=1490622359]
-position = Vector2(2600, -1600)
-rotation = -0.25
-scale = Vector2(1.4, 1.4)
-texture = ExtResource("11_dr3")
-
-[node name="D12" type="Sprite2D" parent="Drawings" unique_id=8098278]
-position = Vector2(-900, 2100)
-rotation = 0.18
-scale = Vector2(1.7, 1.7)
-texture = ExtResource("8_dr0")
-
-[node name="D13" type="Sprite2D" parent="Drawings" unique_id=2057499073]
-position = Vector2(1450, 2400)
-rotation = -0.5
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("11_dr3")
-
-[node name="D14" type="Sprite2D" parent="Drawings" unique_id=1664245835]
-position = Vector2(3000, 400)
-rotation = 0.33
-scale = Vector2(1.8, 1.8)
-texture = ExtResource("10_dr2")
-
-[node name="D15" type="Sprite2D" parent="Drawings" unique_id=797342720]
-position = Vector2(-3100, 1200)
-rotation = -0.4
-scale = Vector2(1.6, 1.6)
-texture = ExtResource("9_dr1")
+script = ExtResource("8_doodle")
 
 [node name="Player" parent="." unique_id=437616590 instance=ExtResource("2_rarhs")]
 position = Vector2(4, 26)
 
 [node name="Shotgun" parent="Player" unique_id=1449322296 instance=ExtResource("3_rarhs")]
 position = Vector2(-2, -1)
+
+[node name="BgMusic" type="AudioStreamPlayer" parent="." unique_id=297535875]
+stream = ExtResource("11_wp0k4")
+volume_db = -8.0
+autoplay = true
 
 [node name="Enemy" parent="." unique_id=451755257 instance=ExtResource("3_vcsgt")]
 position = Vector2(-480, -284)
@@ -134,7 +41,3 @@ position = Vector2(-480, -284)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=364667541]
 script = ExtResource("7_mywjv")
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=297535875]
-stream = ExtResource("11_wp0k4")
-autoplay = true
